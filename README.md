@@ -8,8 +8,8 @@ Allows conversion between Gen IV Wondercard formats PCD and WC4
 ## Usage
 An Example site: [Example]()
 ```javascript
-EncryptWC4(Uint8Array of wc4) //returns Uint8Array of pcd
-DecryptPCD(Uint8Array of pcd) //returns Uint8Array of wc4
+EncryptWC4(Uint8Array of wc4) //returns pcd as Uint8Array
+DecryptPCD(Uint8Array of pcd) //returns wc4 as Uint8Array
 ```
 
 
