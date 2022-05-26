@@ -32,7 +32,7 @@ const _blockPositionInvert = [0, 1, 2, 4, 3, 5, 6, 7, 12, 18, 13, 19, 8, 10, 14,
 
 //Linear Congruent Random Number Generator
 class LCRng {
-	constructor(seed, a, b) {
+	constructor(seed) {
 		this.nSeed = new Uint32Array(3);
 		this.nSeed[0] = seed
 		this.nSeed[1] = 0x41C64E6D
@@ -92,8 +92,8 @@ function XORCrypt(nData, pid) {
 		};
 		valueI = valueI >>> 0
 		v0 = (valueI ^ rng.Next() >>> 0)
-		v1 = Number("0x" + ((v0.toString(16).padStart(4, "0")).slice(2)))
-		v2 = Number("0x" + ((v0.toString(16).padStart(4, "0")).slice(0, 2)))
+		v1 = Number("0x" + (v0.toString(16).slice(2)))
+		v2 = Number("0x" + (v0.toString(16).slice(0, 2)))
 		dNData[i] = v1;
 		dNData[i + 1] = v2
 
