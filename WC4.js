@@ -69,11 +69,11 @@ function Shuffle(data, shiftValue) {
 
 //Bitwise XOR
 function XORCrypt(nData, pid) {
-	var dNData = new Uint8Array(856);
+	var dNData = new Uint8Array(nData.length);
 	let initialA = SwapEndian(nData.slice(14, 16))
 	let initialSeed = initialA[0] * 0x100 + initialA[1]
 	let rng = new LCRng(initialSeed);
-	for (let b = 0; b < 856; b++) {
+	for (let b = 0; b < nData.length; b++) {
 		if (b < 16 || b > 244) {
 			dNData[b] = nData[b];
 		};
@@ -92,8 +92,8 @@ function XORCrypt(nData, pid) {
 		};
 		valueI = valueI >>> 0
 		v0 = (valueI ^ rng.Next() >>> 0)
-		v1 = Number("0x" + (v0.toString(16).slice(2)))
-		v2 = Number("0x" + (v0.toString(16).slice(0, 2)))
+		v1 = Number("0x" + (v0.toString(16).padStart(4, "0").slice(2)))
+		v2 = Number("0x" + (v0.toString(16).padStart(4, "0").slice(0, 2)))
 		dNData[i] = v1;
 		dNData[i + 1] = v2
 
@@ -103,7 +103,7 @@ function XORCrypt(nData, pid) {
 
 //Encrypt WC4 File
 function EncryptWC4(fileArray) {
-	if (fileArray.length == 856) {
+	if (fileArray.length == 856 || fileArray.length == 260) {
 		console.log("Encrypting WC4")
 		let pidA = SwapEndian(fileArray.slice(8, 12))
 		let pid = 0
@@ -121,7 +121,7 @@ function EncryptWC4(fileArray) {
 
 //Decrypt PCD
 function DecryptPCD(fileArray) {
-	if (fileArray.length == 856) {
+	if (fileArray.length == 856 || fileArray.length == 260) {
 		console.log("Decrypting PCD")
 		let pidA = SwapEndian(fileArray.slice(8, 12))
 		let pid = 0

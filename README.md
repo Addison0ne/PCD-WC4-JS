@@ -3,17 +3,17 @@
 
 A JavaScript version of projectpokemon's PCDWC4Converter.
 
-Allows conversion between Gen IV Wondercard formats PCD and WC4
+Allows conversion between Gen IV Wondercard formats PCD and WC4 as well as PGT and PG4.
 
 ## Usage
 An Example site: [Example]()
 ```javascript
-EncryptWC4(Uint8Array of wc4) //returns pcd as Uint8Array
-DecryptPCD(Uint8Array of pcd) //returns wc4 as Uint8Array
+EncryptWC4(Uint8Array of wc4 or pg4) //returns Uint8Array of pcd or pgt
+DecryptPCD(Uint8Array of pcd or pgt) //returns Uint8Array of wc4 or pg4
 ```
 
 
 
 ## Other
-Based of [PCDWCD4Converter](https://github.com/projectpokemon/PCDWC4Converter)
+Based off of [PCDWCD4Converter](https://github.com/projectpokemon/PCDWC4Converter)
  
