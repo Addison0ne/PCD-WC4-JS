@@ -23,6 +23,15 @@ downloadURL = function(data, fileName) {
   a.remove();
 };
 
+function outputFileAsHex(file) {
+    let prettyHexOutput = '';
+    for(let i = 0; i < file.length; i++) {
+        if(i !== 0) prettyHexOutput += ' ';
+        prettyHexOutput += file[i].toString(16).padStart(2, "0");
+    }
+    console.log(prettyHexOutput);
+}
+
 function Convert(){
 	let file = document.getElementById('inputFile').files[0];
 	if(file != undefined){
@@ -32,10 +41,22 @@ function Convert(){
 		reader.onload = function() {
 			var arrayBuffer = this.result,
 			array = new Uint8Array(arrayBuffer);
-			if (name[1] == "wc4"){
-				downloadBlob(EncryptWC4(array), name[0] + '.pcd', 'application/octet-stream');
+			if (name[1] == "wc4"|| name[1] == "pg4"){
+				var ext = "";
+				if (name[1] == "wc4"){
+					ext = ".pcd";
+				} else {
+					ext = ".pgt";
+				}
+				downloadBlob(EncryptWC4(array), name[0] + ext, 'application/octet-stream');
 			}else {
-				downloadBlob(DecryptPCD(array), name[0] + '.wc4', 'application/octet-stream');
+				var ext = "";
+				if (name[1] == "pcd"){
+					ext = ".wc4";
+				} else {
+					ext = ".pg4";
+				}
+				downloadBlob(DecryptPCD(array), name[0] + ext, 'application/octet-stream');
 			};
 		}
 		reader.readAsArrayBuffer(file);
