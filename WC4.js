@@ -92,8 +92,8 @@ function XORCrypt(nData, pid) {
 		};
 		valueI = valueI >>> 0
 		v0 = (valueI ^ rng.Next() >>> 0)
-		v1 = Number("0x" + (v0.toString(16).padStart(4, "0").slice(2)))
-		v2 = Number("0x" + (v0.toString(16).padStart(4, "0").slice(0, 2)))
+		v1 = v0&0xff
+		v2 = (v0&0xff00)/0x100
 		dNData[i] = v1;
 		dNData[i + 1] = v2
 
@@ -104,7 +104,6 @@ function XORCrypt(nData, pid) {
 //Encrypt WC4 File
 function EncryptWC4(fileArray) {
 	if (fileArray.length == 856 || fileArray.length == 260) {
-		console.log("Encrypting WC4")
 		let pidA = SwapEndian(fileArray.slice(8, 12))
 		let pid = 0
 		let x = 0x1000000
@@ -116,13 +115,13 @@ function EncryptWC4(fileArray) {
 		return XORCrypt(Shuffle(fileArray, _blockPositionInvert[shiftValue]), pid);
 	} else {
 		console.log("Wrong file size")
+		return []
 	}
 }
 
 //Decrypt PCD
 function DecryptPCD(fileArray) {
 	if (fileArray.length == 856 || fileArray.length == 260) {
-		console.log("Decrypting PCD")
 		let pidA = SwapEndian(fileArray.slice(8, 12))
 		let pid = 0
 		let x = 0x1000000
@@ -134,5 +133,6 @@ function DecryptPCD(fileArray) {
 		return Shuffle(XORCrypt(fileArray, pid), shiftValue);
 	} else {
 		console.log("Wrong file size!")
+		return []
 	}
 }
